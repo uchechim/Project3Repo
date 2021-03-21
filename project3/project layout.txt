@@ -1,0 +1,23 @@
+Iris Data Set Requirements
+(1) - Univariate Visualization ( Bar Chart )
+(2) - Bivariate Visualization (Scatterplot)
+(3) - Aggregation(Histogram)
+
+Iris Data Set Questions
+
+(1) - ***The most robust flower in regards to size*** - Of the three different classes of flowers, plot theaverage aggregation of each flower's length and width. (Essentially, Calculate: avg sepal length + avg sepal width, + avg petal length, + avg petal width then plot this on a bar chart with it's corresponding flower class.)
+
+(2) - ***Iris sepal width vs petal width*** 
+
+(3) - Sepal length distribution amongst Iris-Setosa (Histogram)
+
+
+Srsatact Data Set Requirements
+(1) - Univariate Visualization ( Bar Chart )
+(2) - Bivariate Visualization (  Scatterplot )
+(3) - Aggregation (Histogram)
+
+Srsatact Data Set Questions
+(1) - (Bar Chart) SATM vs. SATV
+(2) - GPA distribution of ACT (Scatterplot)
+(3) - ACT Score Distribution (Histogram)

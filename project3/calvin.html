@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!--*************************************-->
+    <!--**** IMPORT EXTERNAL Style Sheet ****-->
+    <link rel="stylesheet" href="css/style.css">
+    <!--*************************************-->
+
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+
+    <script src="https://d3js.org/d3.v5.js"
+			integrity="sha384-qbNa7U27VV0Cghe/43y8zEMkmA5M4VxV6MI0k0vdVJKTrBoT2SnBqwccpD0vX+Is"
+			crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    
+    <!--*******************************************-->
+    <!--***** IMPORT EXTERNAL JAVASCRIPT CODE *****-->
+    <script src="js/calv_visualization.js"></script>
+    <!--*******************************************-->
+
+    <title>CAP 4744/5745 - Interactive Data Visualization - Project 3</title>
+
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html">Project 3: Uchenna Chima</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active"><a class="nav-link" href="calvin.html">Calvin College 2004</a></li>
+            <li class="nav-item"><a class="nav-link" href="iris.html">Iris Dataset</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="page">
+
+    <h1>CAP 4744/5745 - Interactive Data Visualization</h1>
+    <h2>Project 3: Calvin College 2004 Dataset</h2>
+    <h2>Uchenna Chima</h2>
+    
+    <h3>Visualization 1: Bar Chart</h3>
+    <div><svg id="vis_1" name="vis_1" class="default_svg"></svg></div>
+    <div>
+        <p>This visualization aims to show the discrepency as well as the difference between the scores of the SATV and SATM portion of the SAT test. By calculating the average, we can see which portion of the test students generally did bettter on</p>
+        <p>By using a barchart, I again strongly believe that the simplicity of this visualization has reached its full potential. The choice of hue used within the SVG however is used to spice up user interaction as it is intended to increase user focus-retainment and every axis has been labeled accordingly.</p>
+        <p>Brief description of the interactions provided in the plot.</p>
+    </div>
+
+    
+    <h3>Visualization 2: Scatter Plot</h3>
+    <div><svg id="vis_2" name="vis_2" class="default_svg"></svg></div>
+    <div>
+        <p>This visualization aims to show how GPA scores were distributed across the board of all 271 students within the "SRSATACT" dataset.</p>
+        <p>By using a scatter plot the distribution of GPA scores within the SVG is clear and concise. Although, there may be some slight discrepancies, this visualization portrays relevant information in a sleek and concise manner. In addition, only one hue variation has been applied to help eliminate distraction from the visualization and last but not least, every axis has been labeled accordingly.</p>
+        <p>Brief description of the interactions provided in the plot.</p>
+    </div>
+     
+    <h3>Visualization 3: Histogram</h3>
+    <div><svg id="vis_3" name="vis_3" class="default_svg"></svg></div>
+    <div>
+        <p>This visualization is trying to convey the distribution of ACT scores of students across the SRSATACT dataset. By looking at this visualization we can see the frequency of students who scored within a certain range on the ACT.</p>
+        <p>By using a historgram, it made it a lot more convenient to display categorical data in this case (the number of people who scored within a certain range on the ACT). Bins have been created to provide maximum accuracy in regard to the score achieved on the ACT and a singluar choice of hue has been selected to eliminate distractions. Last but not least, every axis has been labeled accordingly.</p>
+        <p>Brief description of the interactions provided in the plot.</p>
+    </div>
+    
+
+</div>
+
+<script>
+
+    /*** START CODE HERE ***/
+    let satm_data = null;
+    let satv_data = null;
+    let act_data = null;
+    let gpa_data = null;
+    let data = null;
+    let vis_1 = null;
+    let vis_2 = null;
+    let vis_3 = null;
+    
+    d3.csv("data/srsatact.csv", (row, i) => {
+        
+        return {
+            satm_data: row.SATM,
+            satv_data: row.SATV,
+            act_data: row.ACT,
+            gpa_data: row.GPA
+        };
+        
+    }).then(rows => {
+
+        //Calculating average scores of tests.
+        var avg_satm = rows.filter(function(d,i){
+            return rows[i].satm_data
+        });
+
+        let mean_satm = d3.mean(avg_satm, function(d){return d.satm_data});
+
+        var avg_satv = rows.filter(function(d,i){
+            return rows[i].satv_data
+        });
+
+
+        let mean_satv = d3.mean(avg_satv, function(d){return d.satv_data});
+        //console.log(mean_satm)
+        //console.log(mean_satv)
+        
+        /*
+        var avg_act = rows.filter(function(d,i){
+            return rows[i].act_data
+        });
+        let mean_act = d3.mean(avg_act, function(d){return d.act_data});
+        console.log(mean_act)*/
+       
+        
+
+        data = rows;
+        vis_1 = load_calvin_visualization1("#vis_1", data, mean_satm, mean_satv);
+        vis_2 = load_calvin_visualization2("#vis_2", data);
+        vis_3 = load_calvin_visualization3("#vis_3", data);
+        
+      
+    }).catch(error => {
+        console.log(error);
+    });
+
+</script>
+
+</body>
+</html>
