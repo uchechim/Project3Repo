@@ -30,9 +30,11 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    
     <!--*******************************************-->
     <!--***** IMPORT EXTERNAL JAVASCRIPT CODE *****-->
-    <script src="js/calv_visualization.js"></script>
+    <script src="js/cal_vis.js"></script>
     <!--*******************************************-->
 
     <title>CAP 4744/5745 - Interactive Data Visualization - Project 3</title>
@@ -63,8 +65,8 @@
     <div><svg id="vis_1" name="vis_1" class="default_svg"></svg></div>
     <div>
         <p>This visualization aims to show the discrepency as well as the difference between the scores of the SATV and SATM portion of the SAT test. By calculating the average, we can see which portion of the test students generally did bettter on</p>
-        <p>By using a barchart, I again strongly believe that the simplicity of this visualization has reached its full potential. The choice of hue used within the SVG however is used to spice up user interaction as it is intended to increase user focus-retainment and every axis has been labeled accordingly.</p>
-        <p>Brief description of the interactions provided in the plot.</p>
+        <p>By using a barchart, I again strongly believe that the simplicity of this visualization has reached its full potential. Every axis has been labeled accordingly.</p>
+        <p>The interactions provided within this visualization is simple yet sufficient. Due to the obscurity of the data, one might not be able to see the specific (y-axis) value (AVG Score) of each test category. Thus, a simple mouse over-event has been added to help display the value of each test score. This facilitates effective communication because users are able to confirm data point values precisely.</p>
     </div>
 
     
@@ -73,7 +75,7 @@
     <div>
         <p>This visualization aims to show how GPA scores were distributed across the board of all 271 students within the "SRSATACT" dataset.</p>
         <p>By using a scatter plot the distribution of GPA scores within the SVG is clear and concise. Although, there may be some slight discrepancies, this visualization portrays relevant information in a sleek and concise manner. In addition, only one hue variation has been applied to help eliminate distraction from the visualization and last but not least, every axis has been labeled accordingly.</p>
-        <p>Brief description of the interactions provided in the plot.</p>
+        <p>For this visualization yet another simple but very effective interaction has been provided. In this case, a "tool-tip" interactivty has been supplied to the visualizaton. Once a user hovers over a data point (student within the distribution), the corresponding GPA data is displayed. This facilitates effective communication because users are able to easily see relevant data point values of a rather compressed scatter plot distribution.</p>
     </div>
      
     <h3>Visualization 3: Histogram</h3>
@@ -81,7 +83,7 @@
     <div>
         <p>This visualization is trying to convey the distribution of ACT scores of students across the SRSATACT dataset. By looking at this visualization we can see the frequency of students who scored within a certain range on the ACT.</p>
         <p>By using a historgram, it made it a lot more convenient to display categorical data in this case (the number of people who scored within a certain range on the ACT). Bins have been created to provide maximum accuracy in regard to the score achieved on the ACT and a singluar choice of hue has been selected to eliminate distractions. Last but not least, every axis has been labeled accordingly.</p>
-        <p>Brief description of the interactions provided in the plot.</p>
+        <p>For this visualization yet another simple but very effective interaction has been provided. In this case, a "tool-tip" interactivty has been supplied to the visualizaton. Once a user hovers over a data point (Score on ACT test) on the histogram, the corresponding (# of people) metric is displayed. This facilitates effective communication because users are able to easily see relevant data point values much easier.</p>
     </div>
     
 
@@ -123,23 +125,14 @@
 
 
         let mean_satv = d3.mean(avg_satv, function(d){return d.satv_data});
-        //console.log(mean_satm)
-        //console.log(mean_satv)
         
-        /*
-        var avg_act = rows.filter(function(d,i){
-            return rows[i].act_data
-        });
-        let mean_act = d3.mean(avg_act, function(d){return d.act_data});
-        console.log(mean_act)*/
-       
-        
-
+        tip = d3.tip();
+        tip_two = d3.tip();
         data = rows;
         vis_1 = load_calvin_visualization1("#vis_1", data, mean_satm, mean_satv);
-        vis_2 = load_calvin_visualization2("#vis_2", data);
-        vis_3 = load_calvin_visualization3("#vis_3", data);
-        
+        vis_2 = load_calvin_visualization2("#vis_2", data, tip);
+        vis_3 = load_calvin_visualization3("#vis_3", data, tip_two);
+    
       
     }).catch(error => {
         console.log(error);

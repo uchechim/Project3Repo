@@ -29,7 +29,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
     <!--*******************************************-->
     <!--***** IMPORT EXTERNAL JAVASCRIPT CODE *****-->
     <script src="js/iris_visualization.js"></script>
@@ -65,7 +66,7 @@
     <div>
         <p>This visualization (Bar Chart) attempts to simply display the correlation between the specific iris plant and it's average robustness. The robustness metric is calculated by summing the average of "sepal length","sepal width","petal length" and "petal width" for each plant.</p>
         <p>By using a barchart, I strongly believe that the simplicity of this visualization has reached its full potential. The choice of hue used within the SVG is irrelevant as it is not the main focus of this visualization and every axis has been labeled accordingly.</p>
-        <p>Brief description of the interactions provided in the plot.</p>
+        <p>The interactions provided within this visualization are simple yet sufficient. Due to the obscurity of the data, one might not be able to see the specific (y-axis) value of each iris plant. Thus, a simple mouse over-event has been added to help display the value of each plants' robustness. In addition, some animation has been added upon loading the bar graph to spice things up. This facilitates effective communication because users are able to confirm data point values precisely.</p>
     </div>
     
 
@@ -74,7 +75,7 @@
     <div>
         <p>This visualization aims to show the discrepency as well as the difference between the petal and sepal width of each category of the iris plant. By using a scatter plot, we can see the correlation between the metrics previously stated.</p>
         <p>By using a scatter plot the differentiation between each data point within the SVG is clear and concise. In addition, three hue variations have been applied to help the viewer know which category of the iris plant is being taken into account. Last but not least, every axis has been labeled accordingly. </p>
-        <p>Brief description of the interactions provided in the plot.</p>
+        <p>For this visualization yet another simple but very effective interaction has been provided. In this case, a "hover-over-selection" interactivty has been supplied to the visualizaton. Once a user hovers over a cluster of data (plant category), it puts the corresponding category in focus by displaying its' color and changing the color of other data points to black. This facilitates effective communication because users are able to easily compare discrepancies between plant categories.</p>
     </div>
 
     <h3>Visualization 3: Histogram</h3>
@@ -82,7 +83,7 @@
     <div>
         <p>By the use of a histogram, this visualization is tasked to display the disribution of the (sepal length) of the Iris Plant Species.</p>
         <p>By using a historgram, it made it a lot more convenient to display categorical data in this case (every category of the iris-species). Bins have been created to provide maximum accuracy in regard to the sepal length and a singluar choice of hue has been selected to eliminate distractions. Last but not least, every axis has been labeled accordingly. </p>
-        <p>Brief description of the interactions provided in the plot.</p>
+        <p>For this visualization yet another simple but very effective interaction has been provided. In this case, a "tool-tip" interactivty has been supplied to the visualizaton. Once a user hovers over a data point (Sepal Length CM) on the histogram, the corresponding (# of iris-setosa plants) metric is displayed. This facilitates effective communication because users are able to easily see relevant data point values much easier.</p>
     </div>
     
 </div>
@@ -123,8 +124,9 @@
       
       //rows.sort(function(a, b) {return d3.ascending(b[d], a[d]);  });
       iris_data = rows;
+      tip = d3.tip();
       vis_2 = load_iris_visualization2("#vis_2", iris_data);
-      vis_3 = load_iris_visualization3("#vis_3", iris_data);
+      vis_3 = load_iris_visualization3("#vis_3", iris_data, tip);
       
     }).catch(error => {
         console.log(error);
