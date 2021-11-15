@@ -1,0 +1,7 @@
+Start a local server using python
+Python 2 $ python -m SimpleHTTPServer 8000
+
+Python 3 $ python3 -m http.server 8000
+
+View the visualization
+Open a web browser and naviagate to http://localhost:8000
